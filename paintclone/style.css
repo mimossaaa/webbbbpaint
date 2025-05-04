@@ -1,0 +1,139 @@
+/* ===== Global ===== */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    color: #333;
+    line-height: 1.5;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  /* ===== Landing Page ===== */
+  .landing {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to right, #8ec5fc, #e0c3fc);
+  }
+  
+  .container {
+    text-align: center;
+    background: #fff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+  
+  .button-group {
+    margin-top: 20px;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 12px 20px;
+    margin: 0 8px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #ddd;
+    color: #333;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  }
+  .btn.primary {
+    background-color: #4f46e5;
+    color: #fff;
+  }
+  .btn:hover {
+    background-color: #ccc;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  .btn.primary:hover {
+    background-color: #4338ca;
+  }
+  .btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* ===== Toolbar & Paint App ===== */
+  .toolbar {
+    background-color: #f8f9fa;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  
+  .toolbar input,
+  .toolbar button {
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.2s ease;
+  }
+  
+  .toolbar button {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+  }
+  .toolbar button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    background-color: #f0f0f0;
+  }
+  .toolbar button:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+  
+  .toolbar input[type="color"],
+  .toolbar input[type="range"] {
+    border: none;
+    background: none;
+  }
+  .toolbar input[type="range"] {
+    width: 100px;
+  }
+  .toolbar input[type="color"]:hover,
+  .toolbar input[type="range"]:hover {
+    transform: scale(1.1);
+  }
+  
+  /* ===== Canvas ===== */
+  canvas {
+    display: block;
+    cursor: crosshair;
+    /* subtle border glow on focus/tap */
+    outline: none;
+    transition: box-shadow 0.2s ease;
+  }
+  canvas:focus {
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.4);
+  }
+  
