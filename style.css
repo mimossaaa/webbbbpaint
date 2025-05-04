@@ -1,135 +1,102 @@
 /* style.css */
-/* ===== Global ===== */
+/* ——— Global ——— */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
   color: #333;
-  line-height: 1.5;
 }
 a { text-decoration: none; }
 
-/* ===== Landing Page ===== */
-.landing {
+/* ——— Landing & Paint Background ——— */
+.landing, .paint-page {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 100vh;
-  /* fallback gradient */
+  min-height: 100vh;
+  /* dynamic gradient fallback */
   background: linear-gradient(to right, #8ec5fc, #e0c3fc);
   transition: background 0.2s ease-out;
 }
 
+/* ——— Header (Paint) ——— */
+.paint-header {
+  width: 100%;
+  padding: 16px 24px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.paint-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+.paint-header nav .btn {
+  margin-left: 8px;
+}
+
+/* ——— Shared Container ——— */
 .container {
-  text-align: center;
+  width: calc(100% - 48px);
+  max-width: 1200px;
+  margin: 16px auto;
   background: #fff;
-  padding: 40px;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  padding: 12px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .container:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.12);
 }
 
-h1 {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-}
-p {
-  font-size: 1rem;
-  margin-bottom: 20px;
-}
-
-.button-group {
-  margin-top: 20px;
-}
-.btn {
-  display: inline-block;
-  padding: 12px 20px;
-  margin: 0 8px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  background-color: #ddd;
-  color: #333;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
-}
-.btn.primary {
-  background-color: #4f46e5;
-  color: #fff;
-}
-.btn:hover {
-  background-color: #ccc;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-.btn.primary:hover {
-  background-color: #4338ca;
-}
-.btn:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* ===== Toolbar & Paint App ===== */
+/* ——— Toolbar ——— */
 .toolbar {
-  background-color: #f8f9fa;
-  padding: 10px;
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   align-items: center;
-  border-bottom: 1px solid #ccc;
-  position: sticky;
-  top: 0;
-  z-index: 10;
 }
-
 .toolbar input,
 .toolbar button {
   cursor: pointer;
   transition: transform 0.1s ease, box-shadow 0.2s ease;
 }
-
-.toolbar button {
-  padding: 6px 12px;
-  font-size: 0.9rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #fff;
-  color: #333;
+.toolbar input[type="color"] { width: 36px; height: 36px; padding:0; border:none; }
+.toolbar input[type="range"] { width: 120px; }
+.toolbar input:hover, .toolbar button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
-.toolbar button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  background-color: #f0f0f0;
+.toolbar button {
+  padding: 8px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #f8f9fa;
+  font-size: 0.9rem;
 }
 .toolbar button:active {
   transform: translateY(0);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-.toolbar input[type="color"],
-.toolbar input[type="range"] {
-  border: none;
-  background: none;
+/* ——— Canvas Wrapper ——— */
+.canvas-wrapper {
+  padding: 0;
 }
-.toolbar input[type="range"] {
-  width: 100px;
-}
-.toolbar input[type="color"]:hover,
-.toolbar input[type="range"]:hover {
-  transform: scale(1.1);
-}
-
-/* ===== Canvas ===== */
-canvas {
+#canvas {
   display: block;
+  width: 100%;
+  height: auto;
   cursor: crosshair;
-  outline: none;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 1px #ccc;
   transition: box-shadow 0.2s ease;
 }
-canvas:focus {
+#canvas:focus {
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.4);
 }
