@@ -1,35 +1,87 @@
-<!-- index.html -->
+<!-- paint.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to My Paint App</title>
+  <title>Paint App</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="landing">
-  <div class="container">
-    <h1>Welcome to My Paint App</h1>
-    <p>Created by Majid Rebouh</p>
-    <div class="button-group">
-      <a href="https://github.com/mimossaaa" target="_blank" class="btn">Visit My GitHub</a>
-      <a href="https://www.linkedin.com/in/majid-rebouh-846b462b3/" target="_blank" class="btn">Visit My LinkedIn</a>
-      <a href="paint.html" class="btn primary">Launch Paint App</a>
-    </div>
+<body class="paint-page">
+  <header class="paint-header">
+    <h1>Your Paint Canvas</h1>
+    <nav>
+      <a href="index.html" class="btn">← Back</a>
+      <a href="https://github.com/mimossaaa" target="_blank" class="btn">GitHub</a>
+      <a href="https://www.linkedin.com/in/majid-rebouh-846b462b3/" target="_blank" class="btn">LinkedIn</a>
+    </nav>
+  </header>
+
+  <div class="toolbar container">
+    <input type="color" id="colorPicker" title="Pick brush color" />
+    <input type="range" id="brushSize" min="1" max="50" value="5" title="Brush size" />
+    <button id="penBtn">Pen</button>
+    <button id="eraserBtn">Eraser</button>
+    <button id="textBtn">Text</button>
+    <button id="clearBtn">Clear</button>
+    <button id="saveBtn">Save</button>
+  </div>
+
+  <div class="canvas-wrapper container">
+    <canvas id="canvas"></canvas>
   </div>
 
   <script>
-    // interactive gradient following the mouse
-    const body = document.body;
-    const color1 = '#8ec5fc';
-    const color2 = '#e0c3fc';
+    const canvas = document.getElementById('canvas');
+    const ctx    = canvas.getContext('2d');
+    function resize() {
+      canvas.width  = window.innerWidth  - 48;  // account for container padding
+      canvas.height = window.innerHeight - document.querySelector('.toolbar').offsetHeight - 80;
+    }
+    window.addEventListener('resize', resize);
+    resize();
 
-    body.addEventListener('mousemove', e => {
-      const x = e.clientX / window.innerWidth * 100;
-      const y = e.clientY / window.innerHeight * 100;
-      body.style.background = 
-        `radial-gradient(circle at ${x}% ${y}%, ${color1}, ${color2})`;
+    let drawing = false, tool = 'pen', color = '#000', size = 5;
+
+    canvas.addEventListener('mousedown', e => {
+      if (tool === 'text') {
+        const txt = prompt('Enter text:');
+        if (txt) {
+          ctx.fillStyle = color;
+          ctx.font      = `${size * 3}px Segoe UI`;
+          ctx.fillText(txt, e.offsetX, e.offsetY);
+        }
+      } else {
+        drawing = true;
+        draw(e);
+      }
     });
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup',   _ => drawing = false);
+
+    function draw(e) {
+      if (!drawing) return;
+      ctx.lineWidth   = size;
+      ctx.lineCap     = 'round';
+      ctx.strokeStyle = tool === 'eraser' ? '#fff' : color;
+      ctx.lineTo(e.offsetX, e.offsetY);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(e.offsetX, e.offsetY);
+    }
+
+    document.getElementById('colorPicker').oninput = e => color = e.target.value;
+    document.getElementById('brushSize').oninput  = e => size  = e.target.value;
+    document.getElementById('penBtn').onclick      = _ => tool = 'pen';
+    document.getElementById('eraserBtn').onclick  = _ => tool = 'eraser';
+    document.getElementById('textBtn').onclick    = _ => tool = 'text';
+    document.getElementById('clearBtn').onclick   = _ => ctx.clearRect(0,0,canvas.width,canvas.height);
+    document.getElementById('saveBtn').onclick    = _ => {
+      const link = document.createElement('a');
+      link.download = 'drawing.png';
+      link.href     = canvas.toDataURL();
+      link.click();
+    };
   </script>
 </body>
 </html>
